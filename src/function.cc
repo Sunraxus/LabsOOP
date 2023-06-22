@@ -64,3 +64,37 @@ double Vehicle::calc_price(double m, double d) {
 		}
 	}
 }
+
+std::ostream& vehicles::operator<<(std::ostream& out1, const VehicleType& type) {
+	switch (type) {
+	case RailWay:
+		out1 << "RailWay";
+		return out1;
+	case AirWay:
+		out1 << "AirWay";
+		return out1;
+	case WaterWay:
+		out1 << "WaterWay";
+		return out1;
+	}
+}
+
+std::ostream& vehicles::operator<<(std::ostream& out2, EngineType& eng) {
+	switch (eng) {
+	case Turbo:
+		out2 << "Turbo";
+		return out2;
+	case React:
+		out2 << "React";
+		return out2;
+	}
+}
+
+std::ostream& vehicles::operator<<(std::ostream& out, const Vehicle& vehicle) {
+	double a = vehicle._a;
+	double k = vehicle._k;
+	if (vehicle.get_vehicle_type() == RailWay) { out << "Type: " << vehicle.get_vehicle_type() << "|" << "Basic Rate: " << k << "\n"; }
+	else if (vehicle.get_vehicle_type() == WaterWay) { out << "Type: " << vehicle.get_vehicle_type() << "|" << "Basic Rate: " << k << "|" << "Encouraging Coefficient : " << a << "\n"; }
+	else if (vehicle.get_vehicle_type() == AirWay) { out << "Type: " << vehicle.get_vehicle_type() << "|" << "Basic Rate: " << k << "|" << "Engine Type : " << vehicle.get_engine_type() << "\n"; }
+	return out;
+}

@@ -12,7 +12,7 @@ namespace vehicles {
 	enum EngineType {
 		Turbo,
 		React
-	};
+	};	
 
 	class Vehicle {
 	private:
@@ -20,6 +20,9 @@ namespace vehicles {
 		EngineType _eng;
 		double _k, _a;
 	public:
+		friend std::ostream& operator<<(std::ostream& out, const VehicleType& type);
+		friend std::ostream& operator<<(std::ostream& out, EngineType& eng);
+		friend std::ostream& operator<<(std::ostream& out, const Vehicle& veh);
 		Vehicle();
 		Vehicle(VehicleType _type, double k);
 		Vehicle(VehicleType _type, EngineType _eng, double k);
@@ -34,17 +37,24 @@ namespace vehicles {
 	};
 
 	class VehicleList {
+		int _size;
+		Vehicle** _array;
 	public:
-		static const int CAPACITY = 20;
-	private:
-		Vehicle _vehicles[CAPACITY];
-		int _size; 
-	public:
-		VehicleList();
+		VehicleList(const VehicleList& arr);
+		VehicleList() : _size(0), _array(nullptr) {};
+		VehicleList(int size);
 		int get_size() const;
-		Vehicle operator[](int index) const;
-		void insert(int index, Vehicle v);
+		void insert(int index, Vehicle& v);
 		void remove(int index);
+		void add(Vehicle v);
+		void clear();
+
+		Vehicle& operator[](int index);
+		Vehicle operator[](int index) const;
+
+		void swap(VehicleList& arr);
+		~VehicleList();
+		VehicleList& operator=(VehicleList arr);
 	};
 	int index_of_min_price(const VehicleList& vehicle, double m, double d);
 }
